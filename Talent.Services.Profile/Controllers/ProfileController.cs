@@ -140,32 +140,17 @@ namespace Talent.Services.Profile.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
         public async Task<IActionResult> GetLanguages(String id = "")
         {
-            //Your code here;
-            // throw new NotImplementedException();
-
-            {
-                String talentId = String.IsNullOrWhiteSpace(id) ? _userAppContext.CurrentUserId : id;
-                var languages = await _profileService.GetLanguages(talentId);
-
-                return Json(new { Success = true, data = languages });
-            }
+           // Your code here;
+             throw new NotImplementedException();
 
         }
             [HttpPost("addLanguage")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
         public async Task<ActionResult> AddLanguage([FromBody] AddLanguageViewModel language)
         {
-            //Your code here;
-            // throw new NotImplementedException();
+           // Your code here;
+             throw new NotImplementedException();
 
-            if (ModelState.IsValid)
-            {
-                if (await _profileService.AddNewLanguage(language))
-                {
-                    return Json(new { Success = true });
-                }
-            }
-            return Json(new { Success = false });
         }
 
         [HttpPost("updateLanguage")]
@@ -173,15 +158,7 @@ namespace Talent.Services.Profile.Controllers
         public async Task<ActionResult> UpdateLanguage([FromBody] AddLanguageViewModel language)
         {
             //Your code here;
-            //throw new NotImplementedException();
-            if (ModelState.IsValid)
-            {
-                if (await _profileService.UpdateLanguage(language))
-                {
-                    return Json(new { Success = true });
-                }
-            }
-            return Json(new { Success = false });
+            throw new NotImplementedException();
         }
 
         [HttpPost("deleteLanguage")]
@@ -190,15 +167,8 @@ namespace Talent.Services.Profile.Controllers
         {
             //Your code here;
 
-            //throw new NotImplementedException();
-            if (ModelState.IsValid)
-            {
-                if (await _profileService.DeleteLanguage(id))
-                {
-                    return Json(new { Success = true });
-                }
-            }
-            return Json(new { Success = false });
+            throw new NotImplementedException();
+          
         }
 
         [HttpGet("getSkill")]
@@ -206,11 +176,8 @@ namespace Talent.Services.Profile.Controllers
         public async Task<IActionResult> GetSkills(String id = "")
         {
             //Your code here;
-            //throw new NotImplementedException();
-            String talentId = String.IsNullOrWhiteSpace(id) ? _userAppContext.CurrentUserId : id;
-            var skills = await _profileService.GetSkills(talentId);
-
-            return Json(new { Success = true, data = skills });
+            throw new NotImplementedException();
+           
         }
 
         [HttpPost("addSkill")]
@@ -218,16 +185,7 @@ namespace Talent.Services.Profile.Controllers
         public async Task<ActionResult> AddSkill([FromBody] AddSkillViewModel skill)
         {
             //Your code here;
-            //throw new NotImplementedException();
-            if (ModelState.IsValid)
-            {
-                if (await _profileService.AddNewSkill(skill))
-                {
-                    return Json(new { Success = true });
-                }
-            }
-
-            return Json(new { Success = false });
+            throw new NotImplementedException();
         }
 
         [HttpPost("updateSkill")]
@@ -235,16 +193,8 @@ namespace Talent.Services.Profile.Controllers
         public async Task<IActionResult> UpdateSkill([FromBody]AddSkillViewModel skill)
         {
             //Your code here;
-            //throw new NotImplementedException();
-            if (ModelState.IsValid)
-            {
-                if (await _profileService.AddNewSkill(skill))
-                {
-                    return Json(new { Success = true });
-                }
-            }
-
-            return Json(new { Success = false });
+            throw new NotImplementedException();
+           
         }
 
         [HttpPost("deleteSkill")]
@@ -252,27 +202,17 @@ namespace Talent.Services.Profile.Controllers
         public async Task<IActionResult> DeleteSkill([FromBody] string id)
         {
             //Your code here;
-            //throw new NotImplementedException();
-            if (ModelState.IsValid)
-            {
-                if (await _profileService.DeleteSkill(id))
-                {
-                    return Json(new { Success = true });
-                }
-            }
-            return Json(new { Success = false });
+            throw new NotImplementedException();
+           
         }
         [HttpGet("getExperience")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
         public async Task<IActionResult> GetExperience(String id = "")
         {
             //Your code here;
-            // throw new NotImplementedException();
+             throw new NotImplementedException();
 
-            String talentId = String.IsNullOrWhiteSpace(id) ? _userAppContext.CurrentUserId : id;
-            var experience = await _profileService.GetExperience(talentId);
-
-            return Json(new { Success = true, data = experience });
+           
         }
 
         [HttpPost("addExperience")]
@@ -280,16 +220,9 @@ namespace Talent.Services.Profile.Controllers
         public async Task<ActionResult> AddExperience([FromBody] ExperienceViewModel experience)
         {
             //Your code here;
-            // throw new NotImplementedException();
+             throw new NotImplementedException();
 
-            if (ModelState.IsValid)
-            {
-                if (await _profileService.AddNewExperience(experience))
-                {
-                    return Json(new { Success = true });
-                }
-            }
-            return Json(new { Success = false });
+          
         }
 
         [HttpPost("updateExperience")]
@@ -297,15 +230,8 @@ namespace Talent.Services.Profile.Controllers
         public async Task<IActionResult> UpdateExperience([FromBody] ExperienceViewModel experience)
         {
             //Your code here;
-            //throw new NotImplementedException();
-            if (ModelState.IsValid)
-            {
-                if (await _profileService.UpdateExperience(experience))
-                {
-                    return Json(new { Success = true });
-                }
-            }
-            return Json(new { Success = false });
+            throw new NotImplementedException();
+            
         }
 
         [HttpPost("deleteExperience")]
@@ -313,16 +239,9 @@ namespace Talent.Services.Profile.Controllers
         public async Task<IActionResult> DeleteExperience([FromBody] string id)
         {
             //Your code here;
-            // throw new NotImplementedException();
+             throw new NotImplementedException();
 
-            if (ModelState.IsValid)
-            {
-                if (await _profileService.DeleteExperience(id))
-                {
-                    return Json(new { Success = true });
-                }
-            }
-            return Json(new { Success = false });
+          
         }
 
 

@@ -2,7 +2,7 @@
 import Cookies from 'js-cookie'
 import { default as countries } from '../../../../util/jsonFiles/countries.json';
 import { ChildSingleInput } from '../Form/SingleInput.jsx';
-
+import { Container, Button, Form, Select } from 'semantic-ui-react';
 
 export class Address extends React.Component {
     constructor(props) {
@@ -66,6 +66,7 @@ saveContact() {
       console.log(data.address)
       
     this.props.controlFunc(this.props.componentId, data)
+    this.props.saveProfileData(data)
    
     this.closeEdit()
 }
@@ -174,7 +175,8 @@ renderDisplay() {
     let postCode = this.props.addressData ? `${this.props.addressData.postCode}` : ""
     let city = this.props.addressData ? `${this.props.addressData.city}` : ""
     let country = this.props.addressData ? this.props.addressData.country : ""
-    console.log(this.props.addressData)
+    console.log("hello");
+    console.log( this.props.addressData)
 
     return (
         <div className='row'>
@@ -196,84 +198,104 @@ renderDisplay() {
 export class Nationality extends React.Component {
     constructor(props) {
         super(props)
-          
-        const details = props.nationalityData ?
-        Object.assign({}, this.props.nationalityData)
-        : {
-            nationality: ""
+        this.state = {
+            nationality: "",
+            showPlaceholderIfEmptyNation: false
         }
 
-    this.state = {
-        newNationality: details
-    };
+        this.findDefault = this.findDefault.bind(this);
+        this.saveNation = this.saveNation.bind(this);
+        this.changeNation = this.changeNation.bind(this);
+    }
 
-        this.update = this.update.bind(this)
-        this.handleChange = this.handleChange.bind(this)
-        this.saveContact = this.saveContact.bind(this)
+    findDefault() {
+        //console.log(this.state.data);
+        let result = this.state.data.find(x => x.value === this.props.nationalityData)
+        return result.value
     }
-    update() {
-        console.log("mouse Enter!!")
-        const details = Object.assign({}, this.props.nationalityData)
-        this.setState({
-            newNationality: details
-            
-        })
+
+    componentDidMount(pre) {
+       
     }
+
     componentDidUpdate(prevProps) {
-        /*  console.log("componentDidUpdate") */
         if (this.props.nationalityData !== prevProps.nationalityData) {
-            const details = Object.assign({}, this.props.nationalityData)
             this.setState({
-                newNationality: details
-                //this.props.details.id
+                showPlaceholderIfEmptyNation: true
             })
         }
     }
-    
 
-    handleChange(event) {
-        console.log(event.target.name)
-        console.log(event.target.value)
-        const data = Object.assign({}, this.state.newNationality)
-        data[event.target.name] = event.target.value
-        this.setState({
-            newNationality: data
-        })
-        this.saveContact(data);
+    saveNation() {
+        this.props.saveProfileData({
+            nationality: this.state.nationality === "" ? this.props.nationalityData : this.state.nationality
+        });
     }
 
-    saveContact(data) {
-        //const number = this.state.newContact.number
-       
-        console.log("saveContact!!")
-        // const data = Object.assign({}, this.state.newContact)
-        console.log(data)
-        this.props.saveProfileData(this.props.componentId, data)
-        
+    changeNation(e, { value }) {
+        this.setState({
+            nationality: value
+        });
     }
 
     render() {
-        let countriesOptions = [];
-        //let citiesOptions = [];
-        const selectednationality = this.state.newnationality;
-        //const selectedCity = this.props.location.city;
-        
-        countriesOptions = Object.keys(countries).map((x) => <option key={x} value={x}>{x}</option>);
+        const data = require('../../../../util/jsonFiles/countries.json');
+        let countryList = [];
+        for (const [key] of Object.entries(data)) {
+            countryList.push({ key: key, value: key, text: key });
+        };
+        //const nationality = (this.props.nationalityData === "" || this.props.nationalityData === null) ? "" : this.props.nationalityData;
+        if (!this.state.showPlaceholderIfEmptyNation) {
+            return (
+                <React.Fragment>
+                    <Container style={{ margin: '20px' }}>
+                        <Form>
+                            <Form.Select
+                                options={countryList}
+                                //width={6}
+                                placeholder="Please select your nationality"
+                                onChange={(e, d) => this.changeNation(e, d)}
+                            //defaultValue={}
+                            >
+                            </Form.Select>
 
-       
-    
-    return(
-        <div>
-             <select className="ui right labeled dropdown"
-                    placeholder="nationality"
-                    value={selectednationality}
-                    onChange={this.handleChange}
-                    name="nationality">
-                    <option value="">Select a nationality</option>
-                    {countriesOptions}
-                </select>
-            </div>
-        )
+                        </Form>
+                        <br />
+                        <Button
+                            color='teal'
+                            onClick={() => this.saveNation()}
+                            floated='left'
+                        >
+                            Save
+                        </Button>
+                    </Container>
+                </React.Fragment>
+            );
+        } else {
+            return (
+                <React.Fragment>
+                    <Container style={{ margin: '20px' }}>
+                        <div>{ }</div>
+                        <Form>
+                            <Form.Select
+                                options={countryList}
+                                onChange={(e, d) => this.changeNation(e, d)}
+                                defaultValue={this.props.nationalityData}
+                            >
+                            </Form.Select>
+                        </Form>
+                        <br />
+                        <Button
+                            color='teal'
+                            onClick={() => this.saveNation()}
+                            floated='left'
+                        >
+                            Save
+                        </Button>
+                    </Container>
+                </React.Fragment>
+            );
+        }
+
     }
-    
 }

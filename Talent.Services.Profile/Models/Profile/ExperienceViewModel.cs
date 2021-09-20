@@ -14,5 +14,6 @@ namespace Talent.Services.Profile.Models.Profile
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public object CurrentUserId { get; internal set; }
+        public bool IsDeleted { get; internal set; }
     }
 }

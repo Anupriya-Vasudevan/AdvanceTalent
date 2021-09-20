@@ -180,26 +180,27 @@ export default class AccountProfile extends React.Component {
                                         <FormItemWrapper
                                             title='Nationality'
                                             tooltip='Select your nationality'
-                                        >
-                                            <Nationality
-                                                nationalityData={this.state.profileData.nationality}
-                                                saveProfileData={this.updateAndSaveData}
-                                            />
+                                        ><Nationality
+                                        nationalityData={this.state.profileData.nationality}
+                                        saveProfileData={this.updateAndSaveData}
+                                    />
                                         </FormItemWrapper>
                                         <FormItemWrapper
                                             title='Languages'
                                             tooltip='Select languages that you speak'
                                         >
                                             <Language
-                                                details={this.state.profileData}
+                                                languageData={this.state.profileData.languages}
+                                                updateProfileData={this.updateAndSaveData}
                                             />
                                         </FormItemWrapper>
                                         <FormItemWrapper
                                             title='Skills'
                                             tooltip='List your skills'
                                         >
-                                            <Skill
-                                                details={this.state.profileData}
+                                             <Skill
+                                                skillData={this.state.profileData.skills}
+                                                updateProfileData={this.updateAndSaveData}
                                             />
                                         </FormItemWrapper>
                                         <FormItemWrapper
@@ -207,7 +208,8 @@ export default class AccountProfile extends React.Component {
                                             tooltip='Add your work experience'
                                         >
                                             <Experience
-                                                details={this.state.profileData}
+                                                experienceData={this.state.profileData.experience}
+                                                updateProfileData={this.updateAndSaveData}
                                             />
                                         </FormItemWrapper>
                                         <FormItemWrapper
@@ -216,9 +218,10 @@ export default class AccountProfile extends React.Component {
                                         >
                                           
                                           <VisaStatus
-                                                details={this.state.profileData}
-                                                controlFunc={this.updateForComponentId}
-                                                componentId='VisaStatus'
+                                                visaStatus={this.state.profileData.visaStatus}
+                                                visaExpiryDate={this.state.profileData.visaExpiryDate}
+                                                updateProfileData={this.updateWithoutSave}
+                                                saveProfileData={this.updateAndSaveData}
                                             />
                                             </FormItemWrapper>
                                         <FormItemWrapper

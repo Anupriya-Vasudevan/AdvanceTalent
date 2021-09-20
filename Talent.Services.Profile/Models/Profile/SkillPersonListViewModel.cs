@@ -18,5 +18,6 @@ namespace Talent.Services.Profile.Models.Profile
         public string Name { get; set; }
         public string Level { get; set; }
         public string CurrentUserId { get; set; }
+        public bool IsDeleted { get; internal set; }
     }
 }
