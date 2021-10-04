@@ -1,6 +1,7 @@
 ﻿import React from 'react'
 import Cookies from 'js-cookie';
 import { Container, Input, Button, Table, Grid, Icon } from 'semantic-ui-react';
+import {SingleInput} from '../Form/SingleInput.jsx';
 import UpdateExperienceCompoment from './UpdateExperienceCompoment.jsx';
 export default class Experience extends React.Component {
     constructor(props) {
@@ -41,25 +42,29 @@ export default class Experience extends React.Component {
         })
     }
     handleChangeStartDate(value) {
-        let validation = value.match(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/)
-        if (validation) {
+        //let validation = value.match(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/)
+        console.log("****")
+        console.log(value);
+        //if (validation) {
+           ;
             const dateArray = value.split(/\/|\-/);
-            const startDate = new Date(`${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`);
+            const startDate = new Date(`${dateArray[0]}-${dateArray[1]}-${dateArray[2]}`);
+            console.log(startDate);
             this.setState({
-                startDate: startDate
+                startDate: value
             })
-        }
+      //  }
     }
 
     handleChangeEndDate(value) {
         let validation = value.match(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/)
-        if (validation) {
+        //if (validation) {
             const dateArray = value.split(/\/|\-/);
             const endDate = new Date(`${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`);
             this.setState({
-                endDate: endDate
+                endDate: value
             })
-        }
+  //  }
     }
 
     handleUpdate(id, company, position, responsibilities, start, end) {
@@ -84,9 +89,9 @@ export default class Experience extends React.Component {
     }
 
     handleSave() {
-        if (this.state.company === "" || this.state.position === "" || this.state.startDate.getTime() === new Date(0).getTime() || this.state.endDate.getTime() === new Date(0).getTime() || this.state.responsibilities === "") {
+       /* if (this.state.company === "" || this.state.position === "" || this.state.startDate.getTime() === new Date(0).getTime() || this.state.endDate.getTime() === new Date(0).getTime() || this.state.responsibilities === "") {
             TalentUtil.notification.show("Please fill all the blanks", "error", null, null);
-        } else {
+        } else {*/
             var joined = this.state.experiences.concat({ company: this.state.company, position: this.state.position, responsibilities: this.state.responsibilities, start: this.state.startDate, end: this.state.endDate });
 
             this.setState({
@@ -97,7 +102,7 @@ export default class Experience extends React.Component {
                 //window.location.reload();
             })
         }
-    }
+    
 
     formatdate(value) {
         let editdate = new Date(value)
@@ -246,20 +251,15 @@ export default class Experience extends React.Component {
 
                             <Grid.Row>
                                 <Grid.Column width={8}>
-                                    <h4>Start Date:</h4>
-                                    <Input
-                                        placeholder="Start Date"
-                                        fluid
-                                        onChange={(e) => this.handleChangeStartDate(e.target.value)}                                    >
-                                    </Input>
+                                <h4>Start Date:</h4>
+                                <input placeholder='Enter the Date'  type="date"  
+            onChange={(e) => this.handleChangeStartDate(e.target.value)}
+            />
                                 </Grid.Column>
                                 <Grid.Column width={8}>
                                     <h4>End Date:</h4>
-                                    <Input
-                                        placeholder="End Date"
-                                        fluid
-                                        onChange={(e) => this.handleChangeEndDate(e.target.value)}                                      >
-                                    </Input>
+                                    <input placeholder='Enter the Date'  type="date" 
+            onChange={(e) => this.handleChangeEndDate(e.target.value)}/>
                                 </Grid.Column>
                             </Grid.Row>
 

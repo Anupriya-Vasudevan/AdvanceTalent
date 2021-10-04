@@ -109,93 +109,28 @@ namespace Talent.Services.Profile.Domain.Services
         public async Task<bool> AddNewExperience(ExperienceViewModel experience)
         {
             //Your code here;
-            //throw new NotImplementedException();
-            try
-            {
-                if (experience.CurrentUserId != null)
-                {
-                    var userexperience = new UserExperience();
-                    userexperience.Company = experience.Company;
-                    userexperience.Responsibilities = experience.Responsibilities;
-                    userexperience.Position = experience.Position;
-                    userexperience.Start = experience.Start;
-                    userexperience.End = experience.End;
-                    userexperience.UserId = experience.CurrentUserId;
-                    userexperience.IsDeleted = false;
-                    await _userExperienceRepository.Add(userexperience);
-                    return true;
-                }
-                return false;
-            }
-            catch
-            {
-                return false;
-            }
+            throw new NotImplementedException();
+           
         }
 
         public async Task<bool> DeleteExperience(string id)
         {
             //Your code here;
-            //throw new NotImplementedException();
-            try
-            {
-                var experience = await _userExperienceRepository.GetByIdAsync(id);
-                if (experience != null)
-                {
-                    experience.IsDeleted = true;
-                    await _userExperienceRepository.Update(experience);
-                    return true;
-                }
-                return false;
-            }
-            catch
-            {
-                return false;
-            }
+            throw new NotImplementedException();
+            
         }
 
         public async Task<bool> UpdateExperience(ExperienceViewModel experience)
         {
             //Your code here;
-            //throw new NotImplementedException();
-            try
-            {
-                var userExperience = await _userExperienceRepository.GetByIdAsync(experience.Id);
-                if (userExperience != null)
-                {
-                    userExperience.Id = userExperience.Id;
-                    userExperience.UserId = userExperience.UserId;
-                    userExperience.Company = experience.Company;
-                    userExperience.End = experience.End;
-                    userExperience.Position = experience.Position;
-                    userExperience.Responsibilities = experience.Responsibilities;
-                    userExperience.Start = experience.Start;
-                    await _userExperienceRepository.Update(userExperience);
-                    return true;
-                }
-                return false;
-            }
-            catch
-            {
-                return false;
-            }
+            throw new NotImplementedException();
+           
         }
 
         public async Task<IEnumerable<ExperienceViewModel>> GetExperience(string id)
         {
-            // throw new NotImplementedException();
-            var _userexperience = await _userExperienceRepository.FindAsync(x => x.UserId == id);
-            var userexperience = _userexperience.Where(x => !x.IsDeleted).Select(x => new List<UserExperience>() { x }).SelectMany(x => x).Distinct();
-
-            List<ExperienceViewModel> experiences = new List<ExperienceViewModel>();
-
-            foreach (var item in userexperience)
-            {
-                experiences.Add(ViewModelFromExperience(item));
-            }
-
-
-            return experiences;
+             throw new NotImplementedException();
+            
 
         }
 
@@ -557,55 +492,7 @@ namespace Talent.Services.Profile.Domain.Services
             throw new NotImplementedException();
         }
 
-        /* public async Task<bool> UpdateTalentPhoto(string talentId, IFormFile file)
-         {
-             try
-             {
-                 var fileExtension = Path.GetExtension(file.FileName);
-                 List<string> acceptedExtensions = new List<string> { ".jpg", ".png", ".gif", ".jpeg" };
-
-                 if (fileExtension != null && !acceptedExtensions.Contains(fileExtension.ToLower()))
-                 {
-                     return false;
-                 }
-
-                 var profile = (await _userRepository.Get(x => x.Id == talentId)).SingleOrDefault();
-
-                 if (profile == null)
-                 {
-                     return false;
-                 }
-
-                 var newFileName = await _fileService.SaveFile(file, FileType.ProfilePhoto);
-
-                 if (!string.IsNullOrWhiteSpace(newFileName))
-                 {
-                     var oldFileName = profile.ProfilePhoto;
-
-                     if (!string.IsNullOrWhiteSpace(oldFileName))
-                     {
-                         await _fileService.DeleteFile(oldFileName, FileType.ProfilePhoto);
-                     }
-
-                     string photourl = await _fileService.GetFileURL(newFileName, FileType.ProfilePhoto);
-                     if(!string.IsNullOrWhiteSpace(photourl))
-                     {
-                         profile.ProfilePhoto = newFileName;
-                         profile.ProfilePhotoUrl = photourl;
-                         await _userRepository.Update(profile);
-                         return true;
-                     }
-
-                 }
-
-                 return false;
-             }
-             catch(MongoException e)
-             {
-                 return false;
-             }
-
-         }*/
+       
         public async Task<bool> UpdateTalentPhoto(string talentId, IFormFile file)
         {
             try

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
+import moment from 'moment';
 import { Container, Input, Button, Table, Grid, Icon } from 'semantic-ui-react';
 
 export default class UpdateExperienceCompoment extends Component {
@@ -30,41 +31,45 @@ export default class UpdateExperienceCompoment extends Component {
     }
 
     handleChangeStartDate(value) {
+        console.log(value)
         let validation = value.match(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/)
-        if (validation) {
+        //if (validation) {
             const dateArray = value.split(/\/|\-/);
             const startDate = new Date(`${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`);
+            console.log(startDate)
             this.setState({
-                start: startDate
+                start: value
             })
         }
-    }
+   // }
 
     handleChangeEndDate(value) {
+        console.log(value)
         let validation = value.match(/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/)
-        if (validation) {
+      //  if (validation) {
             const dateArray = value.split(/\/|\-/);
             const endDate = new Date(`${dateArray[2]}-${dateArray[1]}-${dateArray[0]}`);
             this.setState({
-                end: endDate
+                end: value
             })
         }
-    }
+   // }
 
     handleUpdate() {
         const id = this.props.Experience.id;
         const company = this.state.company === "" ? this.props.Experience.company : this.state.company;
         const position = this.state.position === "" ? this.props.Experience.position : this.state.position;
         const responsibilities = this.state.responsibilities === "" ? this.props.Experience.responsibilities : this.state.responsibilities;
-        const start = this.state.start.getTime() === new Date(0).getTime() ? new Date(this.props.Experience.start) : this.state.start;
-        const end = this.state.end.getTime() === new Date(0).getTime() ? new Date(this.props.Experience.end) : this.state.end;
+        const start = this.state.start==="" ? this.props.Experience.start : this.state.start;
+        console.log(start)
+        const end = this.state.end==="" ? this.props.Experience.end : this.state.end;
 
-        if (company === "" || position === "" || start.getTime() === new Date(0).getTime() || end.getTime() === new Date(0).getTime() || responsibilities === "") {
+        /*if (company === "" || position === "" || start.getTime() === new Date(0).getTime() || end.getTime() === new Date(0).getTime() || responsibilities === "") {
             TalentUtil.notification.show("Please fill all the blanks", "error", null, null);
-        } else {
+        } else {*/
             this.props.handleUpdate(id, company, position, responsibilities, start, end)
         }
-    }
+  //}
 
     formatdate(value) {
         let editdate = new Date(value)
@@ -78,8 +83,12 @@ export default class UpdateExperienceCompoment extends Component {
     }
 
     render() {
-        if (this.props.open) {
+       
+        if (this.props.open) { console.log(this.props.Experience.start)
+            console.log(this.props.Experience.end)
+
             return (
+               
                 <Container>
                     <Grid style={{ marginBottom: '10px' }}>
                         <Grid.Row>
@@ -104,29 +113,20 @@ export default class UpdateExperienceCompoment extends Component {
                                 </Input>
                             </Grid.Column>
                         </Grid.Row>
-
                         <Grid.Row>
-                            <Grid.Column width={8}>
+                                <Grid.Column width={8}>
                                 <h4>Start Date:</h4>
-                                <Input
-                                    placeholder="Start Date"
-                                    fluid
-                                    onChange={(e) => this.handleChangeStartDate(e.target.value)}
-                                    defaultValue={this.formatdate(this.props.Experience.start)}
-                                >
-                                </Input>
-                            </Grid.Column>
-                            <Grid.Column width={8}>
-                                <h4>End Date:</h4>
-                                <Input
-                                    placeholder="End Date"
-                                    fluid
-                                    onChange={(e) => this.handleChangeEndDate(e.target.value)}
-                                    defaultValue={this.formatdate(this.props.Experience.end)}
-                                >
-                                </Input>
-                            </Grid.Column>
-                        </Grid.Row>
+                                <input placeholder='Enter the Date'  type="date" 
+                                onChange={(e) => this.handleChangeStartDate(e.target.value)} defaultValue={moment(this.props.Experience.start).format("YYYY-MM-DD")}//defaultValue={this.formatdate(this.props.Experience.start)}
+                                required />
+                                </Grid.Column>
+                                <Grid.Column width={8}>
+                                    <h4>End Date:</h4>
+                                    <input placeholder='Enter the Date'  type="date" defaultValue={moment(this.props.Experience.end).format("YYYY-MM-DD")}  //defaultValue={this.props.Experience.end}
+            onChange={(e) => this.handleChangeEndDate(e.target.value)} required/>
+                                </Grid.Column>
+                            </Grid.Row>
+
 
                         <Grid.Row>
                             <Grid.Column width={16}>

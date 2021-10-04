@@ -210,6 +210,8 @@ export default class AccountProfile extends React.Component {
                                             <Experience
                                                 experienceData={this.state.profileData.experience}
                                                 updateProfileData={this.updateAndSaveData}
+                                                controlFunc={this.updateForComponentId}
+                                                componentId='Experience'
                                             />
                                         </FormItemWrapper>
                                         <FormItemWrapper
@@ -227,10 +229,10 @@ export default class AccountProfile extends React.Component {
                                         <FormItemWrapper
                                             title='Status'
                                             tooltip='What is your current status in jobseeking?'>
-                                        <TalentStatus
-                                                status={this.state.profileData.jobSeekingStatus}
-                                                updateProfileData={this.updateWithoutSave}
-                                                saveProfileData={this.updateAndSaveData}
+                                         <TalentStatus
+                                                details={this.state.profileData}
+                                                controlFunc={this.updateForComponentId}
+                                                componentId='Status'
                                             />
                                             </FormItemWrapper>
                                         <FormItemWrapper

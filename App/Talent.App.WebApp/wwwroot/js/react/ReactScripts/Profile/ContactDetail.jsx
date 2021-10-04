@@ -126,7 +126,7 @@ export class IndividualDetailSection extends Component {
             <div className='row'>
                 <div className="ui sixteen wide column">
                     <React.Fragment>
-                        <p>Name: {firstName+lastName}</p>
+                        <p>Name: {firstName+" "+lastName}</p>
                         
                         <p>Email: {email}</p>
                         <p>Phone: {phone}</p>
